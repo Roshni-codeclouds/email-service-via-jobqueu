@@ -1,1 +1,1 @@
-# email-service-via-jobqueu
+# email-service-via-jobqueue
