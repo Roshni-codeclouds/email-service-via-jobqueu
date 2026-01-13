@@ -1,12 +1,13 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import * as nodemailer from 'nodemailer';
+import { Transporter } from 'nodemailer';
 import { ConfigService } from '@nestjs/config';
 import { EmailJobData } from './dto/email.dto';
 
 @Processor('email-queue')
 export class EmailProcessor extends WorkerHost {
-    private transporter;
+    private transporter: Transporter;
 
     constructor(private configService: ConfigService) {
         super();
