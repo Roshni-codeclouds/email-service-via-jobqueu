@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
 import { EmailModule } from './email/email.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EmailModule } from './email/email.module';
       inject: [ConfigService],
     }),
     EmailModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
