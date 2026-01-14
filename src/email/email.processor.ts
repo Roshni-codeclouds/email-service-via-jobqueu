@@ -4,9 +4,11 @@ import * as nodemailer from 'nodemailer';
 import { Transporter } from 'nodemailer';
 import { ConfigService } from '@nestjs/config';
 import { EmailJobData } from './dto/email.dto';
+import { Logger } from '@nestjs/common';
 
 @Processor('email-queue')
 export class EmailProcessor extends WorkerHost {
+    private readonly logger = new Logger(EmailProcessor.name);
     private transporter: Transporter;
 
     constructor(private configService: ConfigService) {
@@ -26,7 +28,7 @@ export class EmailProcessor extends WorkerHost {
     }
 
     async process(job: Job<EmailJobData>): Promise<any> {
-        console.log(`Processing email job ${job.id} for ${job.data.to}`);
+        this.logger.log(`Processing email job ${job.id} for ${job.data.to}`);
 
         try {
             const info = await this.transporter.sendMail({
@@ -36,10 +38,10 @@ export class EmailProcessor extends WorkerHost {
                 text: job.data.text,
                 html: job.data.html,
             });
-            console.log(`Email sent: ${info.messageId}`);
+            this.logger.log(`Email sent: ${info.messageId}`);
             return info;
         } catch (error) {
-            console.error('Failed to send email:', error);
+            this.logger.error('Failed to send email', error.stack);
             throw error;
         }
     }
