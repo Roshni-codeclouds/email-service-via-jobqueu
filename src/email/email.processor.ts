@@ -23,8 +23,8 @@ export class EmailProcessor extends WorkerHost {
                 subject,
                 text,
                 html,
-                template, // e.g., 'welcome' (without .hbs)
-                context,  // variables for the template
+                template, 
+                context, 
                 attachments,
             });
 
