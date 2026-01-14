@@ -18,7 +18,7 @@ import { EmailController } from './email.controller';
                 transport: {
                     host: configService.get('SMTP_HOST'),
                     port: configService.get('SMTP_PORT'),
-                    secure: false,
+                    secure: configService.get('SMTP_PORT') === 465, // true for 465, false for other ports
                     auth: {
                         user: configService.get('SMTP_USER'),
                         pass: configService.get('SMTP_PASS'),
